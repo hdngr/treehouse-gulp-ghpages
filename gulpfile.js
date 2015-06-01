@@ -24,7 +24,7 @@ gulp.task('compileSass', function() {
     .pipe(gulp.dest(options.src + 'css/'));
 });
 
-gulp.task('html', function() {
+gulp.task('html', ['compileSass'], function() {
   var assets = useref.assets();
   return gulp.src(options.src + 'index.html')
               .pipe(assets)
@@ -41,15 +41,19 @@ gulp.task('watchFiles', function() {
 
 gulp.task('assets', function(){
   return gulp.src([options.src + 'img/**/*', 
-                   options.src + 'fonts/**/*'], {base: options.src})
+                   options.src + 'fonts/**/*',
+                   options.src + 'font-awesome/**/*',
+                   options.src + 'mail/**/*'], {base: options.src})
           .pipe(gulp.dest(options.dist));
 })
 
-// watch scripts
-gulp.task('serve', ['watchFiles']);
+// watch sass
+gulp.task('serve', ['compileSass', 'watchFiles']);
 
 gulp.task('clean', function() {
-  del([options.dist]);
+  del([optionsns.dist]);
+  // delete compiles css and map
+  del([options.src + 'css/main.css*']);
 });
 
 gulp.task('build', ['html', 'assets'])

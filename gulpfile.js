@@ -51,7 +51,7 @@ gulp.task('assets', function(){
 gulp.task('serve', ['compileSass', 'watchFiles']);
 
 gulp.task('clean', function() {
-  del([optionsns.dist]);
+  del([options.dist]);
   // delete compiles css and map
   del([options.src + 'css/main.css*']);
 });
